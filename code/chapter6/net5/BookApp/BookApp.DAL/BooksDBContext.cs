@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookApp.DAL
 {
@@ -17,14 +18,23 @@ namespace BookApp.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Book>()
+                .ToTable("Book");
+
+            modelBuilder.Entity<Book>()
                 .HasKey(b => b.Id);
 
             modelBuilder.Entity<Book>()
-                .ToTable("Book");
+                .Property(b => b.Id)
+                .UseIdentityColumn().ValueGeneratedOnAdd(); 
+
 
             modelBuilder.Entity<BookReview>()
                 .ToTable("BookReview")
                 .HasKey(b => b.Id);
+
+            modelBuilder.Entity<BookReview>()
+            .Property(b => b.Id)
+            .UseIdentityColumn().ValueGeneratedOnAdd();
 
             modelBuilder.Entity<BookReview>()
                 .HasOne(b => b.Book)
@@ -70,7 +80,7 @@ namespace BookApp.DAL
             modelBuilder.Entity<Book>().HasData(books);
             modelBuilder.Entity<BookReview>().HasData(new
             {
-                BookId = 1,
+                Book_Id = 1,
                 Id = 1,
                 Rating = 3,
                 Title = "Aenean ut est dolor",
@@ -79,7 +89,7 @@ namespace BookApp.DAL
             });
             modelBuilder.Entity<BookReview>().HasData(new
             {
-                BookId = 1,
+                Book_Id = 1,
                 Id = 2,
                 Rating = 5,
                 Title = "Lorem ipsum dolor sit amet",
@@ -89,7 +99,7 @@ namespace BookApp.DAL
 
             modelBuilder.Entity<BookReview>().HasData(new
             {
-                BookId = 2,
+                Book_Id = 2,
                 Id = 3,
                 Rating = 3,
                 Title = "Lorem ipsum dolor sit amet",
@@ -98,7 +108,7 @@ namespace BookApp.DAL
             });
             modelBuilder.Entity<BookReview>().HasData(new
             {
-                BookId = 2,
+                Book_Id = 2,
                 Id = 4,
                 Rating = 4,
                 Title = "Lorem ipsum dolor sit amet",
@@ -107,7 +117,7 @@ namespace BookApp.DAL
             });
             modelBuilder.Entity<BookReview>().HasData(new
             {
-                BookId = 3,
+                Book_Id = 3,
                 Id = 5,
                 Rating = 5,
                 Title = "Lorem ipsum dolor sit amet",

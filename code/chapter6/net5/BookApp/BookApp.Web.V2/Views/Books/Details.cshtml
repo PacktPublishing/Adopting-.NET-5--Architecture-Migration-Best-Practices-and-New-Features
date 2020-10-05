@@ -1,0 +1,62 @@
+﻿@model BookApp.Models.Book
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatePublished)
+        </dt>
+
+        <dd>
+            Date Published
+        </dd>
+
+        <dt>
+            Cover Image
+        </dt>
+
+        <dd>
+            @if (Model.CoverImage != null)
+            {
+                <img src="data:image;base64,@System.Convert.ToBase64String(Model.CoverImage)" style=" max-width: 150px;" />
+            }
+
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Reviews", "Index", "BookReviews", new { id = Model.Id }, null) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

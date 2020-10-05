@@ -73,6 +73,13 @@ namespace BookApp.DAL
             }
         }
 
+        public Book GetBookById(int? Id,BooksDBContext context)
+        {
+                if (!Id.HasValue)
+                    return null;
+                return context.Books.Include(b => b.Reviews).FirstOrDefault(b => b.Id == Id.Value);
+        }
+
         public BookReview AddReviewToBook(int id, BookReview bookReview)
         {
             using (var context = new BooksDBContext(dbOptions))
@@ -80,12 +87,11 @@ namespace BookApp.DAL
                 if (bookReview.Id > 0 || bookReview.Book != null)
                     throw new DataException("The bookreview id must be 0 for new reviews");
 
-                var book = GetBookById(id);
+                var book = GetBookById(id,context);
                 if (book == null)
                     throw new DataException($"No book found with id {id}");
-
                 book.Reviews.Add(bookReview);
-                context.SaveChangesAsync();
+                context.SaveChanges();
                 return bookReview;
             }
         }
