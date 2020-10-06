@@ -42,7 +42,7 @@
         @Html.AntiForgeryToken()
 
 <div class="form-actions no-color">
-    @Html.HiddenFor(m => m.Book.Id, new { Name = "bookId" })
+    @Html.Hidden("bookId", Model.Book.Id, new { @Id = "bookId" })
     <input type="submit" value="Delete" class="btn btn-default" /> |
     @Html.ActionLink("Back to List", "Index", "Books", new { id = Model.Id }, null)
 </div>

@@ -106,11 +106,18 @@ namespace BookApp.DAL
             }
         }
 
+        public BookReview GetBookReviewById(int? Id,BooksDBContext context)
+        {
+                if (!Id.HasValue)
+                    return null;
+                return context.BookReviews.Include(b => b.Book).FirstOrDefault(b => b.Id == Id.Value);
+        }
+
         public BookReview UpdateBookReview(BookReview bookReview)
         {
             using (var context = new BooksDBContext(dbOptions))
             {
-                var bookReviewDb = GetBookReviewById(bookReview.Id);
+                var bookReviewDb = GetBookReviewById(bookReview.Id,context);
                 bookReviewDb.Title = bookReview.Title;
                 bookReviewDb.Review = bookReview.Review;
                 bookReviewDb.Rating = bookReview.Rating;

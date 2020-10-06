@@ -20,21 +20,8 @@ namespace BookApp.DAL
             modelBuilder.Entity<Book>()
                 .ToTable("Book");
 
-            modelBuilder.Entity<Book>()
-                .HasKey(b => b.Id);
-
-            modelBuilder.Entity<Book>()
-                .Property(b => b.Id)
-                .UseIdentityColumn().ValueGeneratedOnAdd(); 
-
-
             modelBuilder.Entity<BookReview>()
-                .ToTable("BookReview")
-                .HasKey(b => b.Id);
-
-            modelBuilder.Entity<BookReview>()
-            .Property(b => b.Id)
-            .UseIdentityColumn().ValueGeneratedOnAdd();
+                .ToTable("BookReview");
 
             modelBuilder.Entity<BookReview>()
                 .HasOne(b => b.Book)
