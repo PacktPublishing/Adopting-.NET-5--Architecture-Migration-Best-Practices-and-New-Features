@@ -37,7 +37,7 @@
                 @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
-            @Html.HiddenFor(m => m.Book.Id, new { Name="bookId"})
+            @Html.Hidden("bookId", Model.Book.Id, new { @Id = "bookId" })
         </div>
 
         <div class="form-group">

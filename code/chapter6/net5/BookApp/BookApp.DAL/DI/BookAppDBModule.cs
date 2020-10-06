@@ -22,7 +22,6 @@ namespace BookApp.DAL.DI
             services.AddScoped<IBookRepository, BookRepository>();
 
             return services;
-
         }
     }
 }

@@ -14,6 +14,7 @@ namespace BookApp.Models
         [Range(0, 5)]
         public int? Rating { get; set; }
         public string Review { get; set; }
+        [Required]
         public string Title { get; set; }
     }
 }

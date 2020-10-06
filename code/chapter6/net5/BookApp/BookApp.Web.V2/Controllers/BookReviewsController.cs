@@ -49,8 +49,11 @@ namespace BookApp.Web.V2.Controllers
                 bookRepository.AddReviewToBook(bookId, bookReview);
                 return RedirectToAction("Index",new { id = bookId});
             }
-
+            var book = bookRepository.GetBookById(bookId);
+            bookReview.Book = book;
             return View(bookReview);
+
+
         }
 
         // GET: BookReviews/Edit/5
