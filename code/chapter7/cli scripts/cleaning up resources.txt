@@ -1,0 +1,2 @@
+resourcegroupname=bookAppResourceGroup
+az group delete --name $resourcegroupname
