@@ -25,7 +25,7 @@ namespace ModelBuilderApp
 
         public static void CreateModel()
         {
-            // var loader
+            // create loader
             TextLoader textLoader = mlContext.Data.CreateTextLoader<SentimentInput>(separatorChar: '\t', hasHeader: false);
 
 
@@ -98,21 +98,6 @@ namespace ModelBuilderApp
             string fullPath = Path.Combine(assemblyFolderPath, relativePath);
 
             return fullPath;
-        }
-
-        public static void PrintMulticlassClassificationMetrics(MulticlassClassificationMetrics metrics)
-        {
-            Console.WriteLine($"************************************************************");
-            Console.WriteLine($"*    Metrics for multi-class classification model   ");
-            Console.WriteLine($"*-----------------------------------------------------------");
-            Console.WriteLine($"    MacroAccuracy = {metrics.MacroAccuracy:0.####}, a value between 0 and 1, the closer to 1, the better");
-            Console.WriteLine($"    MicroAccuracy = {metrics.MicroAccuracy:0.####}, a value between 0 and 1, the closer to 1, the better");
-            Console.WriteLine($"    LogLoss = {metrics.LogLoss:0.####}, the closer to 0, the better");
-            for (int i = 0; i < metrics.PerClassLogLoss.Count; i++)
-            {
-                Console.WriteLine($"    LogLoss for class {i + 1} = {metrics.PerClassLogLoss[i]:0.####}, the closer to 0, the better");
-            }
-            Console.WriteLine($"************************************************************");
         }
 
         public static void PrintMulticlassClassificationFoldsAverageMetrics(IEnumerable<TrainCatalogBase.CrossValidationResult<MulticlassClassificationMetrics>> crossValResults)
