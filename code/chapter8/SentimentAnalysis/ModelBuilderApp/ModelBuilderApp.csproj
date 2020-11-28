@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ModelOutput\sentiment_analysis_model.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\datasets\sentiment labelled sentences\amazon_cells_labelled.txt" Link="TrainingData\amazon_cells_labelled.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\datasets\sentiment labelled sentences\imdb_labelled.txt" Link="TrainingData\imdb_labelled.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\datasets\sentiment labelled sentences\yelp_labelled.txt" Link="TrainingData\yelp_labelled.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ModelOutput\sentiment_analysis_model.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SentimentAnalysis.Models\SentimentAnalysis.Models.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ML" Version="1.5.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TrainingData\" />
+  </ItemGroup>
+
+</Project>
