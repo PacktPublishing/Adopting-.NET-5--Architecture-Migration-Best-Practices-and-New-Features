@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  bookapp.web:
+    image: ${DOCKER_REGISTRY-}bookappweb
+    build:
+      context: .
+      dockerfile: BookApp.Web.V2/Dockerfile

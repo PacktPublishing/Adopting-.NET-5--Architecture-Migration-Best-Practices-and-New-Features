@@ -1,0 +1,51 @@
+# Getting the list of available locations
+az account list-locations -o table
+
+
+# Creating a resource group
+resourceGroupName=bookAppResourceGroup
+location=australiaeast 
+az group create --name $resourceGroupName --location $location 
+
+
+# Creating SQL Server in Azure
+adminlogin=sqlserveradmin
+password=ASampleP@ssw0rd!
+serverName=BookAppSQLServer2020
+
+az sql server create \
+    --name $serverName \
+    --resource-group $resourceGroupName \
+    --location $location  \
+    --admin-user $adminlogin \
+    --admin-password $password
+
+
+#Whitelisting IP Addresses
+startip=118.211.162.81
+endip=118.211.162.81
+az sql server firewall-rule create \
+    --resource-group $resourceGroupName \
+    --server $serverName \
+    -n DeveloperLocalIP \
+    --start-ip-address $startip \
+    --end-ip-address $endip
+az sql server firewall-rule create \
+    --resource-group $resourceGroupName \
+    --server $serverName \
+    -n AzureServices \
+    --start-ip-address 0.0.0.0 \
+    --end-ip-address 0.0.0.0
+
+
+# Creating SQL database
+az sql db create \
+    --resource-group $resourceGroupName \
+    --server $serverName \
+    --name BookApp \
+    --service-objective Basic
+
+# Querying the database
+SELECT TOP 10 * FROM [Book]
+  Inner Join BookReview
+  ON Book.Id = BookReview.Book_Id

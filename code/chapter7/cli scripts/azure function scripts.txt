@@ -1,0 +1,14 @@
+# Creating the storage account
+resourcegroupname=bookAppResourceGroup
+locationname=australiaeast 
+storageaccountname=bookappstorageaccount
+az storage account create -n $storageaccountname -g $resourcegroupname -l $locationname --sku Standard_LRS
+
+# Creating Function App
+functionappname=sentimentanalysis2020
+az functionapp create --consumption-plan-location $locationname --name $functionappname --os-type Windows --resource-group $resourcegroupname --runtime dotnet --storage-account $storageaccountname --functions-version 3
+
+# Obtaining function keys
+functionname=GetSentiment
+az functionapp function keys list -g $resourcegroupname -n $functionappname --function-name $functionname
+
