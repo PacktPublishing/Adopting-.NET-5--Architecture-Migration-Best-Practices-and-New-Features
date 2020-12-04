@@ -20,7 +20,7 @@ namespace primeclienta
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            long input = 1;
+            long input = 3;
 
             while (!stoppingToken.IsCancellationRequested)
             {

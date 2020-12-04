@@ -1,6 +1,7 @@
+using Microsoft.Extensions.Caching.Distributed;
 using Grpc.Core;
-using microservicesapp;
 using Microsoft.Extensions.Logging;
+using microservicesapp;
 using System;
 using System.Threading.Tasks;
 
@@ -9,9 +10,16 @@ namespace primecalculator
     public class PrimeCalculatorService : PrimeCalculator.PrimeCalculatorBase
     {
         private readonly ILogger<PrimeCalculatorService> _logger;
-        public PrimeCalculatorService(ILogger<PrimeCalculatorService> logger)
+        private readonly IDistributedCache _cache;
+
+        private readonly ValueTuple<bool, bool> CACHE_HIT_SUCCESS = new ValueTuple<bool, bool>(true, true);
+        private readonly PrimeReply TRUE_RESULT = new PrimeReply { IsPrime = true };
+        private readonly PrimeReply FALSE_RESULT = new PrimeReply { IsPrime = false };
+
+        public PrimeCalculatorService(ILogger<PrimeCalculatorService> logger, IDistributedCache cache)
         {
             _logger = logger;
+            _cache = cache;
         }
 
         /// <summary>
@@ -24,28 +32,53 @@ namespace primecalculator
         /// <param name="request">a number</param>
         /// <param name="context"></param>
         /// <returns>true if it is a prime number, false otherwise</returns>
-        public override Task<PrimeReply> IsItPrime(PrimeRequest request, ServerCallContext context)
+        public override async Task<PrimeReply> IsItPrime(PrimeRequest request, ServerCallContext context)
         {
-            var isPrime = false;
-
             if (request == null)
-                return Task.FromResult(new PrimeReply { IsPrime = isPrime });
+                return FALSE_RESULT;
 
-            if (request.Number <= 1) isPrime = false;
-            else if (request.Number == 2) isPrime = true;
-            else if (request.Number % 2 == 0) isPrime = false;
+            if (request.Number <= 0) return FALSE_RESULT;
+            else if (request.Number == 1 || request.Number == 2) return TRUE_RESULT;
+            else if (request.Number % 2 == 0) return FALSE_RESULT;
             else
             {
+                var answerFromCache = await GetFromCache(request.Number);
+                if (answerFromCache == CACHE_HIT_SUCCESS) return TRUE_RESULT;
+
                 var boundary = (int)Math.Floor(Math.Sqrt(request.Number));
 
                 for (int i = 3; i <= boundary; i += 2)
                     if (request.Number % i == 0)
-                        return Task.FromResult(new PrimeReply { IsPrime = false }); ;
+                        return FALSE_RESULT;
 
-                isPrime = true;
+                await SetThePrimeInCache(request);
+                return TRUE_RESULT;
             }
+        }
 
-            return Task.FromResult(new PrimeReply { IsPrime = isPrime });
+        /// <summary>
+        /// Get the answer from the cache if it exists.
+        /// Consider valid answer if cache is a hit indicated by the return value (true,true).
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="output"></param>
+        /// <returns>false,false if cache is a miss</returns>
+        private async Task<ValueTuple<bool, bool>> GetFromCache(long input)
+        {
+            var answerHit = await _cache.GetStringAsync(input.ToString());
+            if (answerHit == null) return new ValueTuple<bool, bool>(false, false);
+
+            return new ValueTuple<bool, bool>(true, true); //if cache is a hit, then it is a prime number, no need to verify value of "answerHit"
+        }
+
+        private async Task SetThePrimeInCache(PrimeRequest request)
+        {
+            _logger.LogInformation("Setting the prime number in the cache: " + request.Number);
+
+            await _cache.SetStringAsync(request.Number.ToString(), "true", new DistributedCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30)
+            });
         }
     }
 }
