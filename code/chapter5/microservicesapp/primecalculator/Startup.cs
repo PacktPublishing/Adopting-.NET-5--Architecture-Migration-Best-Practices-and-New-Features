@@ -4,12 +4,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using primecalculator.Extensions;
 
 namespace primecalculator
 {
     public class Startup
     {
-        private const string MANUAL_DEBUGTIME_REDIS_URI = "localhost:6379";
+        private const string MANUAL_DEBUGTIME_REDIS_CS = "localhost:6379"; //Only used when running without Tye
 
         public Startup(IConfiguration configuration)
         {
@@ -26,8 +27,10 @@ namespace primecalculator
 
             services.AddStackExchangeRedisCache(o =>
             {
-                o.Configuration = Configuration.GetConnectionString("redis") ?? MANUAL_DEBUGTIME_REDIS_URI;
+                o.Configuration = Configuration.GetConnectionString("redis") ?? MANUAL_DEBUGTIME_REDIS_CS;
             });
+
+            services.AddRabbitMQ();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

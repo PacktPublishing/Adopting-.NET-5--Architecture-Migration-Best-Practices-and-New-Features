@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using microservicesapp;
 using System;
 using System.Threading.Tasks;
+using primecalculator.Messaging;
 
 namespace primecalculator
 {
@@ -11,15 +12,24 @@ namespace primecalculator
     {
         private readonly ILogger<PrimeCalculatorService> _logger;
         private readonly IDistributedCache _cache;
+        private readonly IMessageQueueSender _mqSender;
 
         private readonly ValueTuple<bool, bool> CACHE_HIT_SUCCESS = new ValueTuple<bool, bool>(true, true);
         private readonly PrimeReply TRUE_RESULT = new PrimeReply { IsPrime = true };
         private readonly PrimeReply FALSE_RESULT = new PrimeReply { IsPrime = false };
 
-        public PrimeCalculatorService(ILogger<PrimeCalculatorService> logger, IDistributedCache cache)
+        private readonly string _queueName;
+
+        public PrimeCalculatorService(ILogger<PrimeCalculatorService> logger, IDistributedCache cache, IMessageQueueSender mqSender)
         {
             _logger = logger;
             _cache = cache;
+            _mqSender = mqSender;
+
+            _queueName = Environment.GetEnvironmentVariable("RABBIT_QUEUE");
+
+            //Debug time only - when localmachine debug without containers, without tye
+            _queueName = string.IsNullOrWhiteSpace(_queueName) ? "primes" : _queueName;
         }
 
         /// <summary>
@@ -52,6 +62,8 @@ namespace primecalculator
                         return FALSE_RESULT;
 
                 await SetThePrimeInCache(request);
+
+                _mqSender.Send(_queueName, request.Number.ToString());
                 return TRUE_RESULT;
             }
         }

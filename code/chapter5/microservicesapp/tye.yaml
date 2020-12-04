@@ -8,13 +8,26 @@ name: microservicesapp
 services:
 - name: primecalculator
   project: primecalculator/primecalculator.csproj
+  env:
+  - RABBIT_USER=guest
+  - RABBIT_PSWD=guest
+  - RABBIT_QUEUE=primes
 - name: primeclienta
   project: primeclienta/primeclienta.csproj
 - name: redis
   image: redis
   bindings:
   - port: 6379
-    connectionString: "${host}:${port}" 
+    connectionString: "${host}:${port}"
 - name: redis-cli
   image: redis
   args: "redis-cli -h redis MONITOR"
+- name: rabbitmq
+  image: rabbitmq:3-management
+  bindings:
+  - name: mq_binding
+    port: 5672
+    protocol: rabbitmq
+    connectionString: "${host}:${port}"
+  - name: mui_binding
+    port: 15672
