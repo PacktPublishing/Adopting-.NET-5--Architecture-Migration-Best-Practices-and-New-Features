@@ -5,7 +5,7 @@ using microservicesapp;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace primeclienta
+namespace primeclientb
 {
     public class Worker : BackgroundService
     {
@@ -24,7 +24,7 @@ namespace primeclienta
             await Task.Delay(TimeSpan.FromSeconds(13), stoppingToken);
             _logger.LogInformation("Starting to send Prime number requests.......");
 
-            long input = 3;
+            long input = 100000; //Client B starts from 100K
 
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -33,7 +33,7 @@ namespace primeclienta
                     var response = await _primeClient.IsItPrimeAsync(new PrimeRequest { Number = input });
                     _logger.LogInformation($"Is {input} a Prime number? Service tells us: {response.IsPrime}\r");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     if (stoppingToken.IsCancellationRequested) return;
                     _logger.LogError(-1, ex, "Error occurred while calling IsItPrimeAsync() but will continue..");
@@ -41,6 +41,8 @@ namespace primeclienta
                 }
 
                 input++;
+
+                if (input >= 1000000) break; //stops itself i.e. background execution after 1 million'th number/times
 
                 if (stoppingToken.IsCancellationRequested) break;
 

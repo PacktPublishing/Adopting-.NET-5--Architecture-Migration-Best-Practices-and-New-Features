@@ -11,13 +11,26 @@ services:
   tags:
     - be
   project: primecalculator/primecalculator.csproj
-  replicas: 1
+  replicas: 3
   env:
   - RABBIT_USER=guest
   - RABBIT_PSWD=guest
   - RABBIT_QUEUE=primes
 - name: primeclienta
+  tags:
+    - cl
   project: primeclienta/primeclienta.csproj
+  replicas: 3
+- name: primeclientb
+  tags:
+    - cl
+  project: primeclientb/primeclientb.csproj
+  replicas: 3
+- name: primeclientc
+  tags:
+    - cl
+  project: primeclientc/primeclientc.csproj
+  replicas: 3
 - name: redis
   tags:
     - be
