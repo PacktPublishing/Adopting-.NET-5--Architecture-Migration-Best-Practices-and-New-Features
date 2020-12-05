@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "primeclienta", "primeclient
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3CF2AD0F-6504-4814-B201-1DCF4400A2CC}"
 	ProjectSection(SolutionItems) = preProject
+		rabbitmq.yaml = rabbitmq.yaml
+		redis.yaml = redis.yaml
 		tye.yaml = tye.yaml
+		tye_rabbit_namedbinding.yaml = tye_rabbit_namedbinding.yaml
+		tye_rabbit_unnamedbinding.yaml = tye_rabbit_unnamedbinding.yaml
 	EndProjectSection
 EndProject
 Global

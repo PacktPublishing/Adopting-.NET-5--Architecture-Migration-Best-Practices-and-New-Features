@@ -26,10 +26,7 @@ namespace primecalculator
             _cache = cache;
             _mqSender = mqSender;
 
-            _queueName = Environment.GetEnvironmentVariable("RABBIT_QUEUE");
-
-            //Debug time only - when localmachine debug without containers, without tye
-            _queueName = string.IsNullOrWhiteSpace(_queueName) ? "primes" : _queueName;
+            _queueName = Constants.GetRabbitMQQueueName();
         }
 
         /// <summary>

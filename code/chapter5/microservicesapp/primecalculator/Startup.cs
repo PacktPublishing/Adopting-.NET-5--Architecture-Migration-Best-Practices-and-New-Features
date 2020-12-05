@@ -11,6 +11,7 @@ namespace primecalculator
     public class Startup
     {
         private const string MANUAL_DEBUGTIME_REDIS_CS = "localhost:6379"; //Only used when running without Tye
+        private const string REDIS_SVC_TYE = "redis"; //Defined in tye.yaml and then refered in deployments
 
         public Startup(IConfiguration configuration)
         {
@@ -27,7 +28,7 @@ namespace primecalculator
 
             services.AddStackExchangeRedisCache(o =>
             {
-                o.Configuration = Configuration.GetConnectionString("redis") ?? MANUAL_DEBUGTIME_REDIS_CS;
+                o.Configuration = Configuration.GetConnectionString(REDIS_SVC_TYE) ?? MANUAL_DEBUGTIME_REDIS_CS;
             });
 
             services.AddRabbitMQ();
