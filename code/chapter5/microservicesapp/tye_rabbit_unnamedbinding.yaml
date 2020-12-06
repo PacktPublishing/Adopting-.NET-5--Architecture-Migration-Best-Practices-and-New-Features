@@ -31,6 +31,11 @@ services:
     - cl
   project: primeclientc/primeclientc.csproj
   replicas: 3
+- name: primeqconsumer
+  tags:
+    - mw
+  project: primeqconsumer/primeqconsumer.csproj
+  replicas: 1
 - name: redis
   tags:
     - be
@@ -45,7 +50,7 @@ services:
   args: "redis-cli -h redis MONITOR"
 - name: rabbitmq
   tags:
-    - be
+    - mw
   image: rabbitmq:3-management
   bindings:
   - port: 5672

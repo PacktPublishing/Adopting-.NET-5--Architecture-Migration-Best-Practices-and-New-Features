@@ -21,7 +21,7 @@ namespace primeclientc
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             //Giving time for all other services/dependencies to be warmed up (ex: RabbitMQ takes time to boot up)
-            await Task.Delay(TimeSpan.FromSeconds(13), stoppingToken);
+            await Task.Delay(TimeSpan.FromSeconds(33), stoppingToken);
             _logger.LogInformation("Starting to send Prime number requests.......");
 
             long input = 1000000; //Client C starts from 1 million and then forever (this is just to simulate realistic load on avg sized apps)

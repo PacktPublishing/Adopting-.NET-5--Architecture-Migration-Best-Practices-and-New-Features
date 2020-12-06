@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "primeclientb", "primeclient
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "primeclientc", "primeclientc\primeclientc.csproj", "{F52CF140-5A9B-43C1-B447-34C7C3915B63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "primeqconsumer", "primeqconsumer\primeqconsumer.csproj", "{678E4607-9940-4C42-BB56-7F1D8DAA770C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,6 +80,18 @@ Global
 		{F52CF140-5A9B-43C1-B447-34C7C3915B63}.Release|x64.Build.0 = Release|Any CPU
 		{F52CF140-5A9B-43C1-B447-34C7C3915B63}.Release|x86.ActiveCfg = Release|Any CPU
 		{F52CF140-5A9B-43C1-B447-34C7C3915B63}.Release|x86.Build.0 = Release|Any CPU
+		{678E4607-9940-4C42-BB56-7F1D8DAA770C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{678E4607-9940-4C42-BB56-7F1D8DAA770C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{678E4607-9940-4C42-BB56-7F1D8DAA770C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{678E4607-9940-4C42-BB56-7F1D8DAA770C}.Debug|x64.Build.0 = Debug|Any CPU
+		{678E4607-9940-4C42-BB56-7F1D8DAA770C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{678E4607-9940-4C42-BB56-7F1D8DAA770C}.Debug|x86.Build.0 = Debug|Any CPU
+		{678E4607-9940-4C42-BB56-7F1D8DAA770C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{678E4607-9940-4C42-BB56-7F1D8DAA770C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{678E4607-9940-4C42-BB56-7F1D8DAA770C}.Release|x64.ActiveCfg = Release|Any CPU
+		{678E4607-9940-4C42-BB56-7F1D8DAA770C}.Release|x64.Build.0 = Release|Any CPU
+		{678E4607-9940-4C42-BB56-7F1D8DAA770C}.Release|x86.ActiveCfg = Release|Any CPU
+		{678E4607-9940-4C42-BB56-7F1D8DAA770C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
