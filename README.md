@@ -1,2 +1,2 @@
-# Introducing-.NET-5
-Introducing .NET 5, published by Packt
+# Adopting-.NET-5
+Adopting .NET-5, published by Packt
