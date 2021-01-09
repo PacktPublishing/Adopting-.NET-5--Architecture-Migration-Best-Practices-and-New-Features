@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "microservicesapp";
+
+package prime;
+
+//Service definition for the microservice: PrimeCalculator
+service PrimeCalculator {
+  //Sends a true false if the number is prime or not
+  rpc IsItPrime (PrimeRequest) returns (PrimeReply);
+}
+
+//Request message
+message PrimeRequest {
+  int64 number = 1;
+}
+
+//Response message containing the result
+message PrimeReply {
+  bool isPrime = 1;
+}

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>dotnet-primeclientb-BD7AB3F1-910C-43CA-BF9A-BDDAFA38FE9E</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.14.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.33.1" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.33.1" />
+    <PackageReference Include="Grpc.Tools" Version="2.34.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Tye.Extensions.Configuration" Version="0.5.0-alpha.20555.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\primecalculator\Protos\prime.proto" GrpcServices="Client">
+      <Link>Protos\prime.proto</Link>
+    </Protobuf>
+  </ItemGroup>
+</Project>
