@@ -28,7 +28,6 @@ namespace ModelBuilderApp
             // create loader
             TextLoader textLoader = mlContext.Data.CreateTextLoader<SentimentInput>(separatorChar: '\t', hasHeader: false);
 
-
             // Load Data
             IDataView trainingDataView = textLoader.Load(TRAINING_DATA_FILES);
 
