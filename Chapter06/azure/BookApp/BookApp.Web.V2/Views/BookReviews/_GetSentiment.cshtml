@@ -1,0 +1,37 @@
+﻿<script src="https://cdn.jsdelivr.net/npm/underscore@1.11.0/underscore-min.js"></script>
+<script type="text/javascript">
+
+    var getReviewSentimentDebounced = _.debounce(getReviewSentiment, 300);
+
+        function getReviewSentiment() {
+            var text = $('#Review').val();
+
+            $.ajax({
+        type: "GET",
+            url: "@Url.Action("GetSentiment")",
+            data: {text:text},
+            success: function (sentimentValue) {
+        console.log(sentimentValue);
+                switch (sentimentValue) {
+                    case -1:
+                        $("#reviewSentiment").text("Negative");
+                        $("#reviewSentiment").css('color', 'red');
+                        break;
+                    case 1:
+                        $("#reviewSentiment").text("Positive");
+                        $("#reviewSentiment").css('color', 'green');
+                        break;
+                    default:
+                        $("#reviewSentiment").text("Neutral");
+                        $("#reviewSentiment").css('color', '#FFBF00'); // Amber
+                }
+            },
+            error: function (req, status, error) {
+        console.log(error);
+            }
+        });
+
+       };
+
+        getReviewSentimentDebounced();
+</script>
