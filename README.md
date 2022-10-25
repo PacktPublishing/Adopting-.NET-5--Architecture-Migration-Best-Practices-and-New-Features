@@ -55,3 +55,7 @@ Based in Sydney, Hammad is currently leading a software development team that bu
 
 **Habib Qureshi**
 is an integration architect and lead developer with almost two decades of professional experience in the software industry. He has worked with start-ups and enterprises, successfully delivering high-quality solutions in an agile manner. He has experience in multiple countries and cultures with on-site, off-site, and remote teams. He is a go-getter and teams always look up to him for technical reviews and solutions.
+### Download a free PDF
+
+ <i>If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost.<br>Simply click on the link to claim your free PDF.</i>
+<p align="center"> <a href="https://packt.link/free-ebook/9781800560567">https://packt.link/free-ebook/9781800560567 </a> </p>
